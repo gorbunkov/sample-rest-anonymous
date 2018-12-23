@@ -16,7 +16,7 @@
     <!-- Base package for your controllers-->
     <context:component-scan base-package="com.company.demo.web.controllers"/>
 
-    <!-- Endpoints for resources that should be accessible without authentication -->
+    <!-- Endpoints for resources that can be accessed without authentication -->
     <security:http pattern="/rest/api/**/cart"
                    create-session="stateless"
                    entry-point-ref="oauthAuthenticationEntryPoint"
@@ -28,6 +28,7 @@
         <cors configuration-source-ref="cuba_RestCorsSource"/>
 
         <custom-filter ref="firstRestEndpointFilter" before="FIRST"/>
+        <!-- this filter sets the session to the security context-->
         <custom-filter ref="my_MyAnonymousAuthenticationFilter" after="PRE_AUTH_FILTER"/>
         <custom-filter ref="cuba_RestLastSecurityFilter" position="LAST"/>
     </security:http>
